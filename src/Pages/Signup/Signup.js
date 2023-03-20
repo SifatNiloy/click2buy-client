@@ -12,10 +12,10 @@ const Signup = () => {
     return (
         <div className='h-[800px] flex justify-center items-center'>
             <div className='w-96 p-7'>
-                <h2 className='text-4xl text-center'>Login</h2>
+                <h2 className='text-4xl text-center'>SignUp</h2>
                 <form onSubmit={handleSubmit(handleSignUP)}>
                     <div className="form-control w-full max-w-xs">
-                        <label className="label"><span className="label-text">Email</span></label>
+                        <label className="label"><span className="label-text">Name</span></label>
                         <input type="text" {...register("name",
                             { required: "name is required" })}
                             className="input input-bordered w-full max-w-xs" />
@@ -34,6 +34,7 @@ const Signup = () => {
                             {
                                 required: "password is required",
                                 minLength: { value: 6, message: "password must be 6 characters or longer" },
+                                pattern: { value: /^(?=.*[A-Z])(?=.*[!@#$&*])(?=.*[0-9])/, message: "password must have uppercase, number and special characters" }
                             })}
                             className="input input-bordered w-full max-w-xs" />
                         {errors.password && <p className='text-red-600'>{errors.password?.message}</p>}
