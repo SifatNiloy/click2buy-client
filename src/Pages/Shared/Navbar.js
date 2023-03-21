@@ -12,6 +12,7 @@ const Navbar = () => {
                         </label>
                         <ul tabIndex={0} className="menu menu-compact dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-52">
                             <li><a>Home</a></li>
+                            <li><a>Shop</a></li>
                             <li tabIndex={0}>
                                 <a className="justify-between">
                                     Parent
@@ -29,7 +30,8 @@ const Navbar = () => {
                 </div>
                 <div className="navbar-center hidden lg:flex">
                     <ul className="menu menu-horizontal px-1">
-                        <li><a>Home</a></li>
+                        <li><a href='/'>Home</a></li>
+                        <li ><a href="/shop">Shop</a></li>
                         <li tabIndex={0}>
                             <a>
                                 Parent
