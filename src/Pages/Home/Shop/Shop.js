@@ -1,9 +1,12 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useLoaderData } from 'react-router-dom';
 import Product from '../Product/Product';
-
+import  './Shop.css';
 const Shop = () => {
-    const {products }= useLoaderData();
+    const {products, count }= useLoaderData();
+    const [page, setPage]= useState(0);
+    const [size, setSize]= useState(12);
+    const pages = Math.ceil(count / size);
     function getInputValue(event) {
         event.preventDefault()
         var inputVal = document.getElementById("myInput").value;
@@ -30,7 +33,17 @@ const Shop = () => {
                         products.map(product => <Product product={product} key={product._id} /> )
                     }
                 </div>
+                <div className="pagination mb-24 flex justify-center gap-6 mt-12">
+                    <p>currently selected page: {page}</p>
+                    {
+                        [...Array(pages).keys()].map(number => <button className={page===number+1 && 'selected'} key={number} onClick={() => setPage(number+1)}>
+                            {number+1}
+                            
+                        </button>)
+                    }
+                </div>
             </div>
+            
         </div>
     );
 };
