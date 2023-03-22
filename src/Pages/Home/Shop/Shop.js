@@ -1,12 +1,24 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useLoaderData } from 'react-router-dom';
 import Product from '../Product/Product';
 import  './Shop.css';
 const Shop = () => {
-    const {products, count }= useLoaderData();
+    // const {products, count }= useLoaderData();
+    const [products, setProducts] = useState([]);
+    const [count, setCount] = useState(0);
     const [page, setPage]= useState(0);
-    const [size, setSize]= useState(12);
+    const [size, setSize] = useState(10);
     const pages = Math.ceil(count / size);
+    useEffect(()=>{
+        const url =`http://localhost:5000/products?page=${page}&size=${size}`;
+        // console.log(page, size)
+        fetch(url)
+        .then(res=> res.json())
+        .then(data=>{
+            setCount(data.count);
+            setProducts(data.products)
+        })
+    },[page, size])
     function getInputValue(event) {
         event.preventDefault()
         var inputVal = document.getElementById("myInput").value;
@@ -26,21 +38,27 @@ const Shop = () => {
                 </form>
             </div>
             <div>
-                <h2>products: {products?.length} </h2>
-                <div className='grid grid-cols-3 justify-center gap-4'>
+                {/* <h2>products: {products?.length} </h2> */}
+                <div className='grid grid-cols-4 justify-center gap-4'>
 
                     {
                         products.map(product => <Product product={product} key={product._id} /> )
                     }
                 </div>
-                <div className="pagination mb-24 flex justify-center gap-6 mt-12">
-                    <p>currently selected page: {page}</p>
+                {/* <p className='mt-12'>currently selected page: {page} and size :{size}</p> */}
+                <div className="pagination my-12 flex justify-center gap-6 ">
+
                     {
                         [...Array(pages).keys()].map(number => <button className={page===number+1 && 'selected'} key={number} onClick={() => setPage(number+1)}>
                             {number+1}
                             
                         </button>)
                     }
+                    <select onChange={event => setSize(event.target.value)}>
+                        <option value="5">5</option>
+                        <option value="10" selected>10</option>
+                        <option value="15">15</option>
+                    </select>
                 </div>
             </div>
             
