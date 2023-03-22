@@ -1,18 +1,19 @@
 import React from 'react';
-import Products from '../Products/Products';
+import { useLoaderData } from 'react-router-dom';
+import Product from '../Product/Product';
 
 const Shop = () => {
+    const {products }= useLoaderData();
     function getInputValue(event) {
         event.preventDefault()
         var inputVal = document.getElementById("myInput").value;
         console.log(inputVal)
-        document.getElementById("myInput").value= "" ;
+        document.getElementById("myInput").value = "";
     }
-   
     return (
         <div>
-           <div className='flex align-items-center justify-center'>
-                <form  className="form-control ">
+            <div className='flex align-items-center justify-center'>
+                <form className="form-control ">
                     <div className="input-group">
                         <input type="text" placeholder="Search…" className="input input-bordered" id="myInput" />
                         <button className="btn btn-square" onClick={getInputValue}>
@@ -20,8 +21,16 @@ const Shop = () => {
                         </button>
                     </div>
                 </form>
-           </div>
-            <Products/>
+            </div>
+            <div>
+                <h2>products: {products?.length} </h2>
+                <div className='grid grid-cols-3 justify-center gap-4'>
+
+                    {
+                        products.map(product => <Product product={product} key={product._id} /> )
+                    }
+                </div>
+            </div>
         </div>
     );
 };
