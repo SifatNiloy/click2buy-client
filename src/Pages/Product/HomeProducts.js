@@ -7,9 +7,9 @@ const HomeProducts = ({product}) => {
             <figure><img src={img} alt="" /></figure>
             <div className="card-body items-center text-center">
                 <h2 className="card-title">{name}</h2>
-                <p>How to park your car at your garage?</p>
+                <p>price : {price}</p>
                 <div className="card-actions justify-end">
-                    <button className="btn btn-sm btn-info">Learn now!</button>
+                    <button className="btn btn-sm btn-info">Buy Now</button>
                 </div>
             </div>
         </div>

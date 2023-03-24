@@ -11,7 +11,7 @@ const LimitedProducts = () => {
     }, [])
     return (
         <div>
-            <h2>products length:{products?.length} </h2>
+            {/* <h2>products length:{products?.length} </h2> */}
             <div className='grid grid-cols-4 justify-center gap-4'>
 
                 {

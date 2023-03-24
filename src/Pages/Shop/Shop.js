@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { useLoaderData } from 'react-router-dom';
 import Product from '../Product/Product';
+import NotFound from '../Shared/NotFound';
+
 import  './Shop.css';
 const Shop = () => {
     
@@ -23,19 +25,21 @@ const Shop = () => {
     const handleSearch = async (event) => {
         event.preventDefault()
         var key = document.getElementById("myInput").value;
-        // let key = event.target.value;
-        console.log(key)
+        
         if (key) {
             let result = await fetch(`http://localhost:5000/products/${key}`) ;
                 result = await result.json();
             if (result) {
                 setProducts(result)
             }
+            else{
+                alert("Not found")  
+            }
         }
-        // else {
-        //     getProducts();
-        // }
-
+        else if(key==""){
+            alert("enter a name")
+        }
+        
         document.getElementById("myInput").value = "";
     }
     return (
@@ -54,8 +58,10 @@ const Shop = () => {
                 {/* <h2>products: {products?.length} </h2> */}
                 <div className='grid grid-cols-4 justify-center gap-4'>
 
-                    {
+                    { 
+                        products.length > 0 ?
                         products.map(product => <Product product={product} key={product._id} /> )
+                            :  <NotFound/>
                     }
                 </div>
                 {/* <p className='mt-12'>currently selected page: {page} and size :{size}</p> */}
