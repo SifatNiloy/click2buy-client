@@ -1,5 +1,6 @@
 import { createBrowserRouter } from "react-router-dom";
 import Home from "../Pages/Home/Home/Home";
+import LimitedProducts from "../Pages/Home/LimitedProducts/LimitedProducts";
 import Main from "../Pages/Layout/Main";
 import Login from "../Pages/Login/Login";
 import Shop from "../Pages/Shop/Shop";
@@ -20,6 +21,7 @@ export const router = createBrowserRouter([
                 // loader: async () => await fetch(`http://localhost:5000/products`),
                 element: <Shop/> ,
             },
+            
             {
                 path:'/login',
                 element:<Login/>,
