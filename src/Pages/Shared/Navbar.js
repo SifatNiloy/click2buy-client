@@ -23,7 +23,7 @@ const Navbar = () => {
                                     <li><a>Submenu 2</a></li>
                                 </ul>
                             </li>
-                            <li><a>About</a></li>
+                            <li><a href='/about'>About</a></li>
                         </ul>
                     </div>
                     <a className="btn btn-ghost normal-case text-xl" href='/'>Click2Buy</a>
@@ -42,7 +42,7 @@ const Navbar = () => {
                                 <li><a>Submenu 2</a></li>
                             </ul>
                         </li>
-                        <li><a>About</a></li>
+                        <li><a href='/about'>About</a></li>
                     </ul>
                 </div>
                 <div className="navbar-end mr-12">
