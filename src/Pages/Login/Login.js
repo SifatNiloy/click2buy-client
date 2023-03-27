@@ -1,6 +1,8 @@
-import React from 'react';
+import { GoogleAuthProvider } from 'firebase/auth';
+import React, { useContext } from 'react';
 import { useForm } from 'react-hook-form';
 import { Link } from 'react-router-dom';
+import { AuthContext } from '../../contexts/AuthProvider';
 import './Login.css'
 const Login = () => {
     const { register, formState: { errors }, handleSubmit } = useForm();
@@ -8,6 +10,16 @@ const Login = () => {
         console.log(data)
         console.log(errors)
     };
+    const { LoginWithGoogle } = useContext(AuthContext);
+    const googleProvider = new GoogleAuthProvider();
+    const handleGoogleSignIn = () => {
+        LoginWithGoogle(googleProvider)
+            .then(result => {
+                const user = result.user;
+                console.log(user);
+            })
+            .catch(error => console.log(error))
+    }
     return (
         <div className='h-[800px] flex justify-center items-center'>
             <div className='w-96 p-7 box'>
@@ -25,7 +37,7 @@ const Login = () => {
                         <input type="password" {...register("password",
                             {
                                 required: "password is required",
-                                minLength: { value: 6 , message: "password must be 6 characters or longer"},
+                                minLength: { value: 6, message: "password must be 6 characters or longer" },
                             })}
                             className="input input-bordered w-full max-w-xs" />
                         {errors.password && <p className='text-red-600'>{errors.password?.message}</p>}
@@ -36,7 +48,7 @@ const Login = () => {
 
 
                     <div className="divider">OR</div>
-                    <button className='btn btn-outline btn-primary w-full'>Continue With Google </button>
+                    <button onClick={handleGoogleSignIn} className='btn btn-outline btn-primary w-full'>Continue With Google </button>
                 </form>
             </div>
         </div>
