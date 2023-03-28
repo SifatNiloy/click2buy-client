@@ -8,7 +8,7 @@ const Login = () => {
     const { register, formState: { errors }, handleSubmit } = useForm();
     const handleLogin = data => {
         console.log(data)
-        console.log(errors)
+        // console.log(errors)
     };
     const { LoginWithGoogle } = useContext(AuthContext);
     const googleProvider = new GoogleAuthProvider();
