@@ -1,33 +1,39 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import { useForm } from 'react-hook-form';
+import { toast } from 'react-hot-toast';
 import { Link } from 'react-router-dom';
 import { AuthContext } from '../../contexts/AuthProvider';
 
 const Signup = () => {
     const { register, formState: { errors }, handleSubmit } = useForm();
     const { createUser, updateUser } = useContext(AuthContext)
-    const handleSignUP =( data )=> {
-        // console.log(data)
-        createUser(data.email, data.password)
-        .then(result=>{
-            const user= result.user;
-            console.log(user);
-            const userInfo = {
-                displayName: data.name
-            }
-            updateUser(userInfo)
-                .then(() => {
-                    // Profile updated!
-                    // ...
-                })
-                .catch((error) => {
-                    console.log(error)
+    const [signUpError, setSignUpError] = useState('')
 
-                });
-        }) 
-        .catch(error=> console.log(error))      
+    const handleSignUP = (data) => {
+        // console.log(data)
+        setSignUpError('')
+        createUser(data.email, data.password)
+            .then(result => {
+                const user = result.user;
+
+                console.log(user);
+                toast('User Created Successfully')
+                const userInfo = {
+                    displayName: data.name
+                }
+                updateUser(userInfo)
+                    .then(() => {
+                        // Profile updated!
+                        // ...
+                    })
+                    .catch((error) => {
+                        console.log(error)
+                        setSignUpError(error.message)
+                    });
+            })
+            .catch(error => console.log(error))
     };
-    
+
     return (
         <div className='h-[800px] flex justify-center items-center '>
             <div className='w-96 p-7 box'>
@@ -57,11 +63,11 @@ const Signup = () => {
                             })}
                             className="input input-bordered w-full max-w-xs" />
                         {errors.password && <p className='text-red-600'>{errors.password?.message}</p>}
-                       
+
                     </div>
                     <input className='btn btn-accent w-full mt-4' value="Sign Up" type="submit" />
+                    {signUpError && <p className='text-red-600'>{signUpError}</p>}
                     <p>Already have an account? <Link className='text-warning' to="/login">Please Login</Link> </p>
-
 
                     <div className="divider">OR</div>
                     <button className='btn btn-outline btn-primary w-full'>Continue With Google </button>
