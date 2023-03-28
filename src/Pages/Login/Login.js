@@ -6,9 +6,16 @@ import { AuthContext } from '../../contexts/AuthProvider';
 import './Login.css'
 const Login = () => {
     const { register, formState: { errors }, handleSubmit } = useForm();
+    const { signIn } = useContext(AuthContext);
     const handleLogin = data => {
         console.log(data)
         // console.log(errors)
+        signIn(data.email, data.password)
+            .then(result => {
+                const user = result.user;
+                console.log(user);
+            })
+            .catch(error => console.log(error))
     };
     const { LoginWithGoogle } = useContext(AuthContext);
     const googleProvider = new GoogleAuthProvider();
