@@ -1,5 +1,5 @@
 import { GoogleAuthProvider } from 'firebase/auth';
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { Link } from 'react-router-dom';
 import { AuthContext } from '../../contexts/AuthProvider';
@@ -7,15 +7,21 @@ import './Login.css'
 const Login = () => {
     const { register, formState: { errors }, handleSubmit } = useForm();
     const { signIn } = useContext(AuthContext);
+    const [loginError, setLoginError]= useState('');
     const handleLogin = data => {
-        console.log(data)
+        // console.log(data)
+        setLoginError('');
         // console.log(errors)
         signIn(data.email, data.password)
             .then(result => {
                 const user = result.user;
                 console.log(user);
+                console.log(user.uid);
             })
-            .catch(error => console.log(error))
+            .catch(error =>{
+                console.log(error.message)
+                setLoginError(error.message)
+            })
     };
     const { LoginWithGoogle } = useContext(AuthContext);
     const googleProvider = new GoogleAuthProvider();
@@ -24,6 +30,7 @@ const Login = () => {
             .then(result => {
                 const user = result.user;
                 console.log(user);
+                
             })
             .catch(error => console.log(error))
     }
@@ -52,10 +59,13 @@ const Login = () => {
                     </div>
                     <input className='btn btn-accent w-full' value="Login" type="submit" />
                     <p>New to our site? <Link className='text-warning' to="/signup">Create New Account</Link> </p>
-
+                    <div>
+                        {loginError && <p className='text-red-600'>{loginError} </p>}
+                    </div>
 
                     <div className="divider">OR</div>
                     <button onClick={handleGoogleSignIn} className='btn btn-outline btn-primary w-full'>Continue With Google </button>
+                    
                 </form>
             </div>
         </div>
