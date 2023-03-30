@@ -7,7 +7,10 @@ const LimitedProducts = () => {
         const url = `https://click2buy-server.sifatniloy.com/limitedProduct`;
         fetch(url)
             .then(res => res.json())
-            .then(data => setProducts(data))
+            .then(data => {
+                setProducts(data)
+                console.log(data)
+            })
     }, [])
     return (
         <div>
