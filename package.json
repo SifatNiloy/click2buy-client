@@ -1,5 +1,6 @@
 {
   "name": "click2buy-client",
+  "homepage": "http://click2buy.sifatniloy.com/",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
