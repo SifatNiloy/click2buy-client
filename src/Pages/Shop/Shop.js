@@ -13,7 +13,7 @@ const Shop = () => {
     const [size, setSize] = useState(10);
     const pages = Math.ceil(count / size);
     useEffect(()=>{
-        const url = `https://click2buy-server.sifatniloy.com/products?page=${page}&size=${size}`;
+        const url = `http://localhost:5000/products?page=${page}&size=${size}`;
         // console.log(page, size)
         fetch(url)
         .then(res=> res.json())
@@ -27,7 +27,7 @@ const Shop = () => {
         var key = document.getElementById("myInput").value;
         
         if (key) {
-            let result = await fetch(`https://click2buy-server.sifatniloy.com/products/${key}`);
+            let result = await fetch(`http://localhost:5000/products/${key}`);
                 result = await result.json();
             if (result) {
                 setProducts(result)
@@ -75,7 +75,7 @@ const Shop = () => {
                     }
                     <select onChange={event => setSize(event.target.value)}>
                         <option value="5">5</option>
-                        <option value="10" selected>10</option>
+                        <option value="10" defaultValue={10}>10</option>
                         <option value="15">15</option>
                     </select>
                 </div>
